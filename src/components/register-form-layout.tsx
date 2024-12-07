@@ -1,13 +1,15 @@
 import React, { useRef } from "react";
-import styles from './register-form.module.css'
+import styles from './register-form.module.css';
 
 interface RegisterFormProps {
   login: string;
   email: string;
   password: string;
-  loginError: string,
-  emailError: string,
-  passwordError: string,
+  confirmPassword: string;
+  loginError: string;
+  emailError: string;
+  passwordError: string;
+  confirmPasswordError: string;
   onChange: React.ChangeEventHandler<HTMLInputElement>;
   onSubmit: React.FormEventHandler<HTMLFormElement>;
   onBlur: React.FocusEventHandler<HTMLInputElement>;
@@ -18,16 +20,18 @@ export const RegisterFormLayout: React.FC<RegisterFormProps> = ({
   login,
   email,
   password,
+  confirmPassword,
   loginError,
   emailError,
   passwordError,
+  confirmPasswordError,
   onChange,
   onSubmit,
   onBlur,
   isSubmitDisabled,
 }) => {
   const submitButtonRef = useRef<HTMLButtonElement>(null);
-  
+
   return (
     <div className={styles.formContainer}>
       <header>Форма регистрации</header>
@@ -48,8 +52,8 @@ export const RegisterFormLayout: React.FC<RegisterFormProps> = ({
           value={email}
           placeholder="Введите почту"
           onChange={onChange}
-          />
-      
+          onBlur={onBlur}
+        />
       
         <input
           type="password"
@@ -58,12 +62,26 @@ export const RegisterFormLayout: React.FC<RegisterFormProps> = ({
           placeholder="Введите пароль"
           onChange={onChange}
           onBlur={onBlur}
-          />
-        <button id="submit" type="submit" disabled={!!isSubmitDisabled} ref={submitButtonRef}>Отправить</button>
+        />
+
+        <input
+          type="password"
+          name="confirmPassword"
+          value={confirmPassword}
+          placeholder="Подтвердите пароль"
+          onChange={onChange}
+          onBlur={onBlur}
+        />
+
+        <button id="submit" type="submit" disabled={isSubmitDisabled} ref={submitButtonRef}>
+          Зарегистрироваться
+        </button>
       </form>
-        {loginError && <div className={styles.error}>{loginError}</div>}
-        {emailError && <div className={styles.error}>{emailError}</div>}
-        {passwordError && <div className={styles.error}>{passwordError}</div>}
+
+      {loginError && <div className={styles.error}>{loginError}</div>}
+      {emailError && <div className={styles.error}>{emailError}</div>}
+      {passwordError && <div className={styles.error}>{passwordError}</div>}
+      {confirmPasswordError && <div className={styles.error}>{confirmPasswordError}</div>}
     </div>
   );
 };

@@ -7,6 +7,8 @@ const initialState = {
   loginError: "",
   emailError: "",
   passwordError: "",
+  confirmPassword: "",
+  confirmPasswordError: "",
 };
 
 export const useStore = () => {
